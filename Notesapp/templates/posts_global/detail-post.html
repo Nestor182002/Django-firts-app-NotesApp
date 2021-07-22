@@ -1,0 +1,57 @@
+{% extends "global.html"%} {% block container %} {% block title %}
+<title>Notesapp</title> {% endblock%}
+
+{% block css %} 
+    <style type="text/css">
+    body {
+    background-color: #fafaf8;
+    font-family:Arial;
+    color:black;
+    font-size:17px;
+    }   
+    a{
+        text-decoration: none;
+        color:#ff441f
+    }
+    
+  </style>
+    {% endblock%}
+
+
+
+<div class="volver">
+    <a href='{% url "posts"   %}'>Volver</a>
+</div>
+
+<div class="detail-posts">
+
+    <h class="user">@{{ posts.userforeign }}</h1>
+        <h2 class="title">{{ posts.title }}</h2>
+        <p class="problem">{{ posts.problem }}</p>
+        <p class="solution">{{ posts.solution }}</p>
+
+</div>
+<div class="comentarios">
+
+    <div class="contenedor-comentario">
+        <a class="comentar" href='{% url "createcoments" posts.id  %}'> Comentar Posts</a>
+    </div>
+
+    <div class="comentarios">
+        {% for comentario in comentario %}
+        <h2 class="comentador">{{comentario.usercoment}}</h2><br class="comentarios-p">
+        <p> {{comentario.comentario}} </p><br>
+
+        <hr/>
+        <!-- If objet_list is empty  -->
+        {% empty %}
+        <li class="nofound">No hay comentarios en este posts.</li>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

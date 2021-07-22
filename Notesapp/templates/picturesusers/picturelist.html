@@ -1,0 +1,27 @@
+{% extends "global.html"%}
+<!-- extender -->
+
+
+{% block container %} {% block title %}
+<title>Notesapp/pictures</title> {% endblock%}
+<!-- tittle -->
+
+<div>
+    <h2 class="imagestext">Mis Imagenes</h2>
+    <!-- siempre poner .url al final de cada imagen -->
+    {% for picture in personal %}
+
+    <img class="image" height="300px" src="{{picture.pictures.url}}" alt="{{picture.users}}">
+    <a class="share" href="#">Compartir</a>
+    <button class="menu">...</button>
+    <div id="totalmenu">
+        <a href='{% url "pictures-delete" picture.id  %}'>delete</a>
+    </div>
+    <!-- img -->
+
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li class="nofound ">No hay Elementos en esta lista.</li>
+
+    {% endfor %} {% endblock%}
+</div>

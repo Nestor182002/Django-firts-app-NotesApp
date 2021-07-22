@@ -1,0 +1,18 @@
+{% extends "global.html"%} {% block container %} {% block title %}
+<title>Notesapp</title> {% endblock%}
+
+<form method="post">{% csrf_token %}
+    <a href='/pictures/'>Volver</a>
+
+    <div>
+        <p class="delete">¿estas seguro de eliminar este elemento? </p>
+        <img width="300px" src="{{ object.pictures.url }}" alt="">
+    </div>
+
+    <input type="submit" value="Confirm" class="input-delete">
+</form>
+
+
+
+
+{% endblock %}

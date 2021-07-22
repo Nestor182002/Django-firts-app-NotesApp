@@ -1,0 +1,81 @@
+{% extends "global.html"%} {% block container %} {% block title %}
+<title>Notesapp/Inicio</title> {% endblock%}
+
+{% block css %} 
+<style type="text/css">
+ body {
+    background-color: #fafaf8;
+    font-family:Arial;
+    color:black;
+    font-size:17px;
+    }
+    a{
+        text-decoration: none;
+        color:#0cc665;
+        margin-left:20px;
+    }
+    ul div{
+        background:white;
+        margin-bottom:20px
+    }
+    h1{
+        color:#3b5998
+    }
+    .problem{
+        color:#ff441f
+    }
+ </style>
+    {% endblock%}
+
+<div>
+
+    <div>
+        <h2>
+            <a href='{% url "postsnew"  %}' class="newposts">Crea un nuevo posts </a>
+        </h2>
+    </div>
+
+
+    <ul>
+        <!-- Iterate over object_list -->
+        {% for object in object_list %}
+        <!-- Display Objects -->
+        <div class="contenedor">
+            <h1 class="users">@{{ object.userforeign }}</h1>
+            <h2 class="title">{{ object.title }}</h2>
+            <p class="problem">{{ object.problem }}</p>
+            <p class="solution">{{ object.solution }}</p>
+            {% if request.user == object.userforeign %}
+            <a class="update" href='{% url "post-update" object.id  %}'>update</a> {% endif %} {% if request.user == object.userforeign %}
+            <a class="delete" href='{% url "post-delete" object.id  %}'>delete</a> {% endif %}
+            <a class="detail" href='{% url "detail-post" object.id %}'>ver publicacion</a>
+        </div>
+
+
+        <hr/>
+        <!-- If objet_list is empty  -->
+        {% empty %}
+        <li class="nofound">No hay Elementos en esta lista.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Inicio</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previo</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span> {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Final &raquo;</a> {% endif %}
+        </span>
+    </div>
+
+
+</div>
+
+{% endblock %}
